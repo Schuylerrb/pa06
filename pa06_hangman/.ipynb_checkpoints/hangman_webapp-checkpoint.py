@@ -2,7 +2,6 @@
   website_demo shows how to use templates to generate HTML
   from data selected/generated from user-supplied information
 """
-
 from flask import Flask, render_template, request
 import hangmanMethods
 app = Flask(__name__)
@@ -10,6 +9,7 @@ app = Flask(__name__)
 global state
 state = {'guesses':[],
          'word':"interesting",
+         'listword': 'interesting',
 		 'word_so_far':"-----------",
 		 'done':False}
 
@@ -22,8 +22,9 @@ def main():
 def start():
 	global state
 	state['word']=hangmanMethods.generate_random_word()
+	state['listword'] = hangmanMethods.listoriginalWord(state['word'])
 	state['guesses'] = []
-	state['word_so_far'] = hangmanMethods.initMystery(state['word'])
+	state['word_so_far'] = hangmanMethods.coverMystery(state['word'])
 	return render_template("start.html",state=state)
 
 @app.route('/play',methods=['GET','POST'])
@@ -35,14 +36,19 @@ def hangman():
 
 	elif request.method == 'POST':
 		letter = request.form['guess']
-		var = hangmanMethods.revMystery(letter, state['word_so_far'], state['word'])
-		if var == "needOneLetter":
-			return render_template('play.html', state=state, error="needLetter")
-
-
-
-		state['guesses'] += [letter]
-		return render_template('play.html',state=state)
+		playerguess = hangmanMethods.guessMystery(letter, state['word_so_far'], state['listword'])
+		if playerguess == "needOneLetter":
+			guessresult = "needOneLetter"
+		elif playerguess == "notInAlpha":
+			guessresult = "notInAlpha"
+		elif playerguess == "alreadyGuessed":
+			guessresult = "alreadyGuessed"
+		elif playerguess == "correctGuess":
+			guessresult = "correctGuess"
+			state['word_so_far'] = newWordsoFar(letter, state['word_so_far'], state['listword'])
+		elif playerguess == "incorrectguess":
+			state['guesses'] += [letter]
+	return render_template('play.html',state=state)
 
 
 
