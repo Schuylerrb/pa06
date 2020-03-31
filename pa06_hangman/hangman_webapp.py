@@ -2,7 +2,7 @@
   website_demo shows how to use templates to generate HTML
   from data selected/generated from user-supplied information
 """
-print("This is a conflict.")
+print("This is a conflict.--------whahahahahahaha")
 from flask import Flask, render_template, request
 import hangmanMethods
 app = Flask(__name__)
@@ -48,6 +48,3 @@ def hangman():
 
 if __name__ == '__main__':
     app.run('0.0.0.0',port=3000)
-
-
-print("googoogoghreuhfebgrgbehjrgb")
