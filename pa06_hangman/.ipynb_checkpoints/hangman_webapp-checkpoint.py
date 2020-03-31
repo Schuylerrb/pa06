@@ -37,6 +37,7 @@ def hangman():
 		letter = request.form['guess']
 		var = hangmanMethods.revMystery(letter, state['word_so_far'], state['word'])
 		if var == "needOneLetter":
+			return render_template('play.html', state=state, error="needLetter")
 
 
 

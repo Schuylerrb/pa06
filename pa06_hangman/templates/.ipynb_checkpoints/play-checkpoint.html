@@ -2,13 +2,18 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1>Welcome to Hangman</h1>
+    <h1>Hangman</h1>
   </div>
-  <p>Try to guess the mystery words</p>
+  <p>Here is your word</p>
   {{state['word_so_far']}}
   <form method="post" action="/play">
     Guess a letter: <input type="text" name="guess">
     <br>
     <input type="submit" class="btn btn-lg btn-danger">
   </form>
+  <p>Here are the letters you've guessed already</p>
+  {% for x in state['guesses'] %}
+   {{x}}
+  {% endfor %}
+
 {% endblock %}
