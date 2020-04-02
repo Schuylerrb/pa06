@@ -3,7 +3,7 @@
 <head>
     {% block head %}
     <link rel="stylesheet" href="style.css" />
-    <title>{% block title %}{% endblock %} - My Webpage</title>
+    <title>{% block title %}{% endblock %} Hangman by Schuyler and Zach</title>
     {% endblock %}
     <link rel="stylesheet"
 	      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -25,8 +25,10 @@
 </head>
 <body>
 	<div class="text-center">
-        <a class="btn btn-primary" href="/about">About</a>
-				<a class="btn btn-primary" href="/start">New Game</a>
+    <br>
+        <a type="button" class="btn btn-primary btn-lg" href="/about">About</a>
+				<a type="button" class="btn btn-primary btn-lg" href="/start">New Game</a>
+        <br>
 				  </div>
     <div class="container" id="content">
 		{% block content %}{% endblock %}
