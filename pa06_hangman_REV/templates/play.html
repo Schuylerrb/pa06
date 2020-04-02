@@ -3,21 +3,34 @@
 {% block content %}
   <div class="jumbotron">
     <h1>Hangman</h1>
+    <br>
+    <h2>A game by <b>Schuyler and Zach</b> </h2>
   </div>
-  <p>Here is your word</p>
-  {{state['word_so_far']}}
+  <h3>Your mystery word:</h3>
+  <br>
+  <h1>{{state['word_so_far']}}</h1>
+  <br>
+  <br>
+  <h3>
   <form method="post" action="/play">
     Guess a letter: <input type="text" name="guess">
-    <br>
     <input type="submit" class="btn btn-lg btn-danger">
   </form>
-  <p>guesses left:</p>
-  {{state['guessesLeft']}}
-  <p>your message:</p>
-  {{state['error']}}
-  <p>Here are the letters you've guessed already</p>
-  {% for x in state['guesses'] %}
-   {{x}}
-  {% endfor %}
-
+  </h3>
+  <br>
+  <br>
+  <h3>Guesses left:</h3>
+  <br>
+<h1>  <b>{{state['guessesLeft']}}</b> </h1>
+  <br>
+  <br>
+  <h3>Your Message:</h3>
+  <br>
+  <h1>{{state['error']}}</h1>
+  <br>
+  <br>
+  <h3>The letters you've guessed already:</h3>
+  <br>
+   <h3>{{state['guesses']}}</h3>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 {% endblock %}

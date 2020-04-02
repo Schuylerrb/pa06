@@ -6,7 +6,7 @@
 from flask import Flask, render_template, request
 import hangman_app
 app = Flask(__name__)
-
+"""
 global state
 state = {'guesses':[],
 		 'word':[],
@@ -15,7 +15,7 @@ state = {'guesses':[],
 		 'error':"",
 		 'guessesLeft':8
          }
-
+"""
 @app.route('/')
 @app.route('/main')
 def main():
@@ -26,10 +26,10 @@ def play():
 	global state
 	state = {'guesses':[],
 			 'word':[],
-			 'word_so_far':"-----------",
+			 'word_so_far':[],
 			 'done':False,
 			 'error':"",
-			 'guessesLeft': 8,
+			 'guessesLeft': 2,
 			 'won': False
 			 }
 	newWord = hangman_app.generate_random_word()
@@ -52,28 +52,29 @@ def hangman():
 			if letter == "again":
 				return play()
 			else:
-				state['error'] = "game is over, type again to play again, if u dont want to get out"
+				state['error'] = "The game is over. Type 'again' in the guess box to play again."
 				return render_template('play.html',state=state)
 		elif state['done'] == True and state['won'] == True:
 			if letter == "again":
 				return play()
 			else:
-				state['error'] = "you won, type again in form to play again, if not get out"
+				state['error'] = "The game is over. Type 'again' in the guess box to play again."
 				return render_template('play.html',state=state)
 		if letter in state['guesses']:
-			state['error'] = "chose a new letter"
+			state['error'] = "Choose a new letter."
 		elif len(letter) != 1:
-			state['error'] = "Please guess 1 letter"
+			state['error'] = "Please guess 1 letter."
 		elif letter not in "qwertyuiopasdfghjklzxcvbnm":
-			state['error'] = "Please guess a letter"
+			state['error'] = "Please guess a letter."
 		else:
 			state['guesses'] += [letter]
 			state['guessesLeft'] -= 1
 			print(state)
 			print(state['word_so_far'] != state['word'])
 			if (state['guessesLeft'] == 0 and state['word_so_far'] != state['word']):
+				wordjoin = ""
 				state['done'] = True
-				state['error'] = "you lost sorry, if you wish to play again simply type again in the form"
+				state['error'] = "Sorry! You lost! The word was:",end="" , wordjoin.join(state['word']) , ". Type 'again' in the guess box to play again."
 
 				#if len(letter) != 1:
 					#state['error'] = "Please guess 1 letter"
@@ -81,14 +82,14 @@ def hangman():
 					#state['error'] = "Please guess a letter"
 			elif letter in state['word']:
 				state['word_so_far'] = hangman_app.uncoverLetter(letter,state['word'],state['word_so_far'])
-				state['error'] = "Congrats"
+				state['error'] = "Correct guess!"
 				state['guessesLeft'] += 1
 				if (state['guessesLeft'] >= 0 and state['word_so_far'] == state['word']):
 					state['done'] = True
 					state['won'] = True
-					state['error'] = "you have won! to play again type again in form"
+					state['error'] = "Congrats! You win! Type 'again' in the guess box to play again."
 			else:
-				state['error'] = "Try again"
+				state['error'] = "Incorrect guess. Try again."
 
 
 		# check if letter has already been guessed
