@@ -11,6 +11,13 @@ def generate_random_word():
    word1 = word_demo
    return word1
 
+def generate_hard_word():
+    import random
+    hardWords = "fizz buzz jazz quiz fox huff jiff fuzz fuzzy dizzy junk lax lox".split()
+    hardWord = random.choice(hardWords)
+    hardWord = hardWord.lower()
+    return hardWord
+
 def coverMystery(word_):
     mysteryWord = list("-"*len(word_))
     return mysteryWord

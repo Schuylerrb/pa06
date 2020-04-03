@@ -21,18 +21,30 @@ state = {'guesses':[],
 def main():
 	return render_template('hangman.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/start')
-def play():
+def play(isHard_ = False):
+	#print(isHard)
 	global state
 	state = {'guesses':[],
 			 'word':[],
 			 'word_so_far':[],
 			 'done':False,
 			 'error':"",
-			 'guessesLeft': 2,
-			 'won': False
+			 'guessesLeft': 10,
+			 'won': False,
+			 'hard': False
 			 }
-	newWord = hangman_app.generate_random_word()
+	#global isHard
+	isHard = isHard_
+	if isHard == False:
+		newWord = hangman_app.generate_random_word()
+	else:
+		newWord = hangman_app.generate_hard_word()
+		state['hard'] = True
 	for i in newWord:
 		state['word'].append(i)
 	state['guesses'] = []
@@ -57,8 +69,12 @@ def hangman():
 		elif state['done'] == True and state['won'] == True:
 			if letter == "again":
 				return play()
+			elif letter == "hard":
+				#isHard = True
+				#print("FINAL CHECK PASSKEY" , isHard)
+				return play(True)
 			else:
-				state['error'] = "The game is over. Type 'again' in the guess box to play again."
+				state['error'] = "The game is over. Type 'again' in the guess box to play again. Or to challenge yourself type 'hard' to play against the world's hardest hangman words"
 				return render_template('play.html',state=state)
 		if letter in state['guesses']:
 			state['error'] = "Choose a new letter."
@@ -71,23 +87,25 @@ def hangman():
 			state['guessesLeft'] -= 1
 			print(state)
 			print(state['word_so_far'] != state['word'])
-			if (state['guessesLeft'] == 0 and state['word_so_far'] != state['word']):
-				wordjoin = ""
-				state['done'] = True
-				state['error'] = "Sorry! You lost! The word was:",end="" , wordjoin.join(state['word']) , ". Type 'again' in the guess box to play again."
-
 				#if len(letter) != 1:
 					#state['error'] = "Please guess 1 letter"
 				#elif letter not in "qwertyuiopasdfghjklzxcvbnm":
 					#state['error'] = "Please guess a letter"
-			elif letter in state['word']:
+			if letter in state['word']:
 				state['word_so_far'] = hangman_app.uncoverLetter(letter,state['word'],state['word_so_far'])
 				state['error'] = "Correct guess!"
 				state['guessesLeft'] += 1
 				if (state['guessesLeft'] >= 0 and state['word_so_far'] == state['word']):
 					state['done'] = True
 					state['won'] = True
-					state['error'] = "Congrats! You win! Type 'again' in the guess box to play again."
+					state['error'] = "Congrats! You win! Type 'again' in the guess box to play again. Or to challenge yourself type 'hard' to play against the world's hardest hangman words"
+			elif (state['guessesLeft'] == 0 and state['word_so_far'] != state['word']):
+				wordjoin = ""
+				state['done'] = True
+				if state['hard'] == True:
+					state['error'] = "Sorry! You lost! The word was: " + wordjoin.join(state['word']) + ". You clearly don't have what it takes so you will have to go through easy level again. Type 'again' in the guess box to play again."
+				else:
+					state['error'] = "Sorry! You lost! The word was: " + wordjoin.join(state['word']) + ". Type 'again' in the guess box to play again."
 			else:
 				state['error'] = "Incorrect guess. Try again."
 
