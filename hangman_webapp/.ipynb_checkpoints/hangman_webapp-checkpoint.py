@@ -36,7 +36,8 @@ def play(isHard_ = False):
 			 'error':"",
 			 'guessesLeft': 10,
 			 'won': False,
-			 'hard': False
+			 'hard': False,
+			 'dead': False
 			 }
 	#global isHard
 	isHard = isHard_
@@ -104,8 +105,10 @@ def hangman():
 				state['done'] = True
 				if state['hard'] == True:
 					state['error'] = "Sorry! You lost! The word was: " + wordjoin.join(state['word']) + ". You clearly don't have what it takes so you will have to go through easy level again. Type 'again' in the guess box to play again."
+					state['dead'] = True
 				else:
 					state['error'] = "Sorry! You lost! The word was: " + wordjoin.join(state['word']) + ". Type 'again' in the guess box to play again."
+					state['dead'] = True
 			else:
 				state['error'] = "Incorrect guess. Try again."
 

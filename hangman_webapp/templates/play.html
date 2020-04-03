@@ -10,6 +10,11 @@
   <br>
   <h1>{{state['word_so_far']}}</h1>
   <br>
+  {% if state['dead'] == True %}
+        <img src=/static/hangmanDead.jpg alt="Dead">
+  {% else %}
+          <img src=/static/hangmanAlive.png alt="Alive">
+  {% endif %}
   <br>
   <h3>
   <form method="post" action="/play">
