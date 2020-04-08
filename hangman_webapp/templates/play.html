@@ -6,32 +6,33 @@
     <br>
     <h2>A game by <b>Schuyler and Zach</b> </h2>
   </div>
+  <h1>SCROLL DOWN FOR MORE INFO</h1>
   <h3>Your mystery word:</h3>
   <br>
   <h1>{{state['word_so_far']}}</h1>
   <br>
   {% if state['guessesLeft'] == 0 %}
-        <img src=/static/hangmanDead.jpg alt="Dead">
+        <img src=/static/frown.png alt="Dead" style="width:110px;height:114px;">
   {% elif state['guessesLeft'] == 1 %}
-        <img src=/static/1Left.png alt="Alive" style="width:150px;height:200px;">
+        <img src=/static/1Left.png alt="Alive" style="width:75px;height:100px;">
   {% elif state['guessesLeft'] == 2 %}
-        <img src=/static/2Left.png alt="Alive" style="width:200px;height:286px;">
+        <img src=/static/2Left.png alt="Alive" style="width:75px;height:100px;">
   {% elif state['guessesLeft'] == 3 %}
-        <img src=/static/3Left.png alt="Alive" style="width:200px;height:286px;">
+        <img src=/static/3Left.png alt="Alive" style="width:75px;height:100px;">
   {% elif state['guessesLeft'] == 4 %}
-        <img src=/static/4Left.png alt="Alive" style="width:200px;height:286px;">
+        <img src=/static/4Left.png alt="Alive" style="width:75px;height:100px;">
   {% elif state['guessesLeft'] == 5 %}
-        <img src=/static/5Left.png alt="Alive" style="width:200px;height:286px;">
+        <img src=/static/5Left.png alt="Alive" style="width:75px;height:100px;">
   {% elif state['guessesLeft'] == 6 %}
-        <img src=/static/6Left.png alt="Alive" style="width:200px;height:286px;">
+        <img src=/static/6Left.png alt="Alive" style="width:75px;height:100px;">
   {% elif state['guessesLeft'] == 7 %}
-        <img src=/static/7Left.png alt="Alive" style="width:200px;height:286px;">
+        <img src=/static/7Left.png alt="Alive" style="width:75px;height:100px;">
   {% elif state['guessesLeft'] == 8 %}
-        <img src=/static/8Left.png alt="Alive" style="width:200px;height:286px;">
+        <img src=/static/8Left.png alt="Alive" style="width:75px;height:100px;">
   {% elif state['guessesLeft'] == 9 %}
-        <img src=/static/9Left.png alt="Alive" style="width:200px;height:286px;">
+        <img src=/static/9Left.png alt="Alive" style="width:75px;height:100px;">
   {% else %}
-        <img src=/static/10Left.png alt="Alive" style="width:200px;height:286px;">
+        <img src=/static/10Left.png alt="Alive" style="width:75px;height:100px;">
   {% endif %}
   <br>
   <h3>
